@@ -6,7 +6,7 @@
 [![Python](https://img.shields.io/badge/Python-3.10-blue)](https://python.org)
 [![PyTorch](https://img.shields.io/badge/PyTorch-2.0-orange)](https://pytorch.org)
 
-**Author:** Animesh A. Kumar | Newcastle University MSc Advanced Computer Science 2025–26  
+**Author:** Animesh Kumar | Newcastle University MSc Advanced Computer Science 2025–26  
 **Target:** OMIA 2026 Workshop at MICCAI + medRxiv preprint  
 **Framework:** PyTorch | **Compute:** Google Colab H100
 
