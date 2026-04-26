@@ -1,0 +1,20 @@
+# Model weights — hosted on HuggingFace
+*.pth
+*.pt
+*.h5
+*.onnx
+
+# Large data files
+*.rar
+*.zip
+*.mat
+*.npy
+demo_results.json
+
+# Python
+__pycache__/
+*.pyc
+.ipynb_checkpoints/
+
+# Colab
+*.ipynb

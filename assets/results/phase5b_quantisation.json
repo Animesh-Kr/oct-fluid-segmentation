@@ -1,0 +1,14 @@
+{
+  "V2L_fp32_mb": 510.4,
+  "V2L_int8_mb": 131.6,
+  "V2L_compression": "26%",
+  "V2L_speedup_factor": 3.9,
+  "V2S_fp32_mb": 90.8,
+  "V2S_int8_mb": 24.0,
+  "V2S_compression": "26%",
+  "V2S_speedup_factor": 3.8,
+  "method": "per-tensor symmetric int8 quantisation of Conv2d+Linear weights",
+  "V2L_int8_path": "/content/drive/MyDrive/OCT_Fluid_Segmentation/checkpoints/quantised/ckpt_phaseB_V2L_s123_int8.pth",
+  "V2S_int8_path": "/content/drive/MyDrive/OCT_Fluid_Segmentation/checkpoints/quantised/ckpt_phaseB_V2S_s42_int8.pth",
+  "note": "Dequantise at inference: weight = weight_int8 * scale"
+}

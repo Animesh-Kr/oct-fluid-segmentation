@@ -1,0 +1,8 @@
+variant,dice_mean_fluid,std
+"V2S only (no MC, no TTA)",0.3377,0.3317
+V2S + MC Dropout,0.1413,0.1442
+V2S + TTA,0.1206,0.1149
+"V2L only (no MC, no TTA)",0.4485,0.3036
+V2S + V2L ensemble,0.4073,0.3133
+V2S + V2L + MC Dropout,0.2791,0.2188
+Full (V2S+V2L+MC+TTA) [final],0.2927,0.2178
