@@ -223,4 +223,3 @@ All weights on HuggingFace: [animeshakr/oct-fluid-segmentation](https://huggingf
 ## License
 
 MIT License — see [LICENSE](LICENSE)
-Paste output when done and we move to the paper draft.
