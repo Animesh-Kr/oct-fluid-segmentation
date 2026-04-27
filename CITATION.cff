@@ -1,0 +1,28 @@
+cff-version: 1.2.0
+message: "If you use this software, please cite it as below."
+authors:
+  - family-names: Kumar
+    given-names: Animesh
+    orcid: https://orcid.org/0009-0003-0608-7004
+    affiliation: Newcastle University, UK
+title: "Attention-Guided TransUNet for Multi-Class Retinal Fluid Segmentation in OCT with MC Dropout Uncertainty Quantification"
+version: v1.0.0
+date-released: 2026-04-27
+doi: 10.5281/zenodo.19808008
+url: https://github.com/Animesh-Kr/oct-fluid-segmentation
+repository-code: https://github.com/Animesh-Kr/oct-fluid-segmentation
+license: MIT
+keywords:
+  - retinal-fluid-segmentation
+  - OCT
+  - TransUNet
+  - uncertainty-quantification
+  - MC-Dropout
+  - domain-adaptation
+  - deep-learning
+  - medical-image-segmentation
+abstract: "Attention-guided TransUNet for multi-class retinal fluid segmentation across four OCT acquisition sources with Source-Adaptive BatchNorm, MC Dropout uncertainty quantification, and novel UCUS clinical triage score. EfficientNetV2L encoder achieving validation Dice 0.784 across three seeds."
+references:
+  - type: software
+    title: "Model weights and demo"
+    url: https://huggingface.co/animeshakr/oct-fluid-segmentation
