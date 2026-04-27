@@ -5,6 +5,7 @@
 [![HuggingFace Space](https://img.shields.io/badge/🤗-Live%20Demo-green)](https://huggingface.co/spaces/animeshakr/oct-fluid-segmentation)
 [![Python](https://img.shields.io/badge/Python-3.10-blue)](https://python.org)
 [![PyTorch](https://img.shields.io/badge/PyTorch-2.0-orange)](https://pytorch.org)
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.19808008.svg)](https://doi.org/10.5281/zenodo.19808008)
 
 **Author:** Animesh Kumar | Newcastle University MSc Advanced Computer Science 2025–26  
 **Target:** OMIA 2026 Workshop at MICCAI + medRxiv preprint  
