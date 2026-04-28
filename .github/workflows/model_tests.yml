@@ -6,6 +6,9 @@ on:
   pull_request:
     branches: [main]
 
+env:
+  FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
+
 jobs:
 
   # ── Job 1: Validate ONNX models load correctly ──────────────────────────────
@@ -13,8 +16,6 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-        with:
-          node-version: '24'
 
       - name: Set up Python
         uses: actions/setup-python@v5
@@ -25,35 +26,30 @@ jobs:
         run: pip install onnxruntime huggingface_hub numpy
 
       - name: Validate ONNX models from HuggingFace
-        env:
-          HF_TOKEN: ${{ secrets.HF_TOKEN }}
         run: |
           python - <<'EOF'
           import onnxruntime as ort
           import numpy as np
           from huggingface_hub import hf_hub_download
-          import os
 
-          token = os.environ.get('HF_TOKEN')
-          REPO  = 'animeshakr/oct-fluid-segmentation'
-          DIR   = '/tmp/onnx_models'
+          REPO = 'animeshakr/oct-fluid-segmentation'
+          DIR  = '/tmp/onnx_models'
 
-          print('Downloading slot1 ONNX...')
+          print('Downloading slot1 ONNX data file...')
           hf_hub_download(
               repo_id=REPO,
               filename='deployment/slot1_v2l_seed2024.onnx.data',
               local_dir=DIR,
-              token=token,
           )
+          print('Downloading slot1 ONNX model file...')
           hf_hub_download(
               repo_id=REPO,
               filename='deployment/slot1_v2l_seed2024.onnx',
               local_dir=DIR,
-              token=token,
           )
 
-          # Correct path — files land in deployment/ subfolder
           onnx_path = f'{DIR}/deployment/slot1_v2l_seed2024.onnx'
+          print(f'Loading ONNX session from {onnx_path}...')
 
           sess = ort.InferenceSession(onnx_path, providers=['CPUExecutionProvider'])
           inp  = np.random.randn(1, 1, 512, 512).astype(np.float32)
@@ -69,19 +65,19 @@ jobs:
   space-health-check:
     runs-on: ubuntu-latest
     steps:
-      - name: Check HF Space is running
+      - name: Check HF Space is reachable
         run: |
           STATUS=$(curl -s -o /dev/null -w "%{http_code}" \
             "https://animeshakr-oct-fluid-segmentation.hf.space/" \
             --max-time 30)
           echo "Space HTTP status: $STATUS"
           if [ "$STATUS" = "200" ] || [ "$STATUS" = "503" ]; then
-            echo "Space reachable (503 = sleeping, expected for free tier)"
+            echo "Space reachable — 503 means sleeping on free tier, expected"
           else
-            echo "Unexpected status: $STATUS — space may be rebuilding"
+            echo "Warning: unexpected status $STATUS — space may be rebuilding"
           fi
 
-  # ── Job 3: Validate results JSON ────────────────────────────────────────────
+  # ── Job 3: Validate demo_results.json ───────────────────────────────────────
   results-validation:
     runs-on: ubuntu-latest
     steps:
@@ -96,55 +92,39 @@ jobs:
         run: pip install huggingface_hub
 
       - name: Validate demo_results.json from HuggingFace
-        env:
-          HF_TOKEN: ${{ secrets.HF_TOKEN }}
         run: |
           python - <<'EOF'
           import json
           from huggingface_hub import hf_hub_download
-          import os
 
-          token = os.environ.get('HF_TOKEN')
-          REPO  = 'animeshakr/oct-fluid-segmentation'
+          REPO = 'animeshakr/oct-fluid-segmentation'
 
           print('Downloading demo_results.json...')
-          path = hf_hub_download(
-              repo_id=REPO,
-              filename='demo_results.json',
-              token=token,
-          )
+          path = hf_hub_download(repo_id=REPO, filename='demo_results.json')
 
           with open(path) as f:
               data = json.load(f)
 
-          # Schema checks
-          assert 'samples' in data,         'Missing samples key'
-          assert 'metadata' in data,        'Missing metadata key'
-          assert len(data['samples']) > 0,  'No samples found'
+          assert 'samples'  in data, 'Missing samples key'
+          assert 'metadata' in data, 'Missing metadata key'
+          assert len(data['samples']) > 0, 'No samples found'
 
-          # Check first sample has required fields
           s = data['samples'][0]
           for field in ['id', 'source', 'oct_image', 'fluid_volumes_mm3']:
               assert field in s, f'Missing field: {field}'
 
           print(f'demo_results.json OK — {len(data["samples"])} samples')
 
-          # Check dice scores from samples directly
-          # (V2L_best.json does not exist — use sample dice instead)
-          dice_values = []
-          for sample in data['samples']:
-              d = sample.get('dice', {})
-              mean = d.get('mean_fluid', None)
-              if mean is not None:
-                  dice_values.append(mean)
-
+          dice_values = [
+              s.get('dice', {}).get('mean_fluid')
+              for s in data['samples']
+              if s.get('dice', {}).get('mean_fluid') is not None
+          ]
           if dice_values:
-              avg_dice = sum(dice_values) / len(dice_values)
-              print(f'Average sample dice: {avg_dice:.4f}')
-          else:
-              print('No dice values found in samples — skipping dice check')
+              avg = sum(dice_values) / len(dice_values)
+              print(f'Average sample dice: {avg:.4f}')
 
-          if 'main_results' in data and data['main_results']:
+          if data.get('main_results'):
               print('main_results CSV present')
 
           print('All results validations passed.')
