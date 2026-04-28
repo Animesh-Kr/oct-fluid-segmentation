@@ -8,7 +8,7 @@
 [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.19808008.svg)](https://doi.org/10.5281/zenodo.19808008)
 
 **Author:** Animesh Kumar | Newcastle University MSc Advanced Computer Science 2025–26  
-**Target:** OMIA 2026 Workshop at MICCAI + medRxiv preprint  
+**Target:** arXiv preprint + OMIA 2027 Workshop at MICCAI  
 **Framework:** PyTorch | **Compute:** Google Colab H100
 
 ---
@@ -196,6 +196,17 @@ All weights on HuggingFace: [animeshakr/oct-fluid-segmentation](https://huggingf
 
 ---
 
+## Live Deployments
+
+| Space | Description | Link |
+|-------|-------------|------|
+| 🟣 Complete Pipeline | Classification + fluid segmentation end-to-end | [oct-complete-pipeline](https://huggingface.co/spaces/animeshakr/oct-complete-pipeline) |
+| 🔵 Segmentation Dashboard | Streamlit dashboard with live ONNX inference | [oct-fluid-segmentation](https://huggingface.co/spaces/animeshakr/oct-fluid-segmentation) |
+| 🟢 Segmentation API | FastAPI JSON inference endpoint | [oct-fluid-segmentation-api](https://huggingface.co/spaces/animeshakr/oct-fluid-segmentation-api) |
+| 📦 Model Weights | All checkpoints + ONNX + demo data | [animeshakr/oct-fluid-segmentation](https://huggingface.co/animeshakr/oct-fluid-segmentation) |
+
+
+
 ## Citation
 
 ```bibtex
@@ -205,7 +216,10 @@ All weights on HuggingFace: [animeshakr/oct-fluid-segmentation](https://huggingf
   author={Kumar, Animesh A.},
   institution={Newcastle University, UK},
   year={2026},
-  note={MSc Advanced Computer Science. Targeting OMIA 2026 Workshop at MICCAI.}
+  doi={10.5281/zenodo.19808008},
+  url={https://doi.org/10.5281/zenodo.19808008},
+  note={Independent research, Newcastle University MSc Advanced Computer
+        Science 2025--26. Zenodo software archive v1.0.0.}
 }
 ```
 
