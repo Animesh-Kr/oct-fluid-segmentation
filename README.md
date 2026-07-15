@@ -1,5 +1,6 @@
 # Attention-Guided TransUNet for Multi-Class Retinal Fluid Segmentation
 
+[![arXiv](https://img.shields.io/badge/arXiv-2607.12212-b31b1b.svg)](https://arxiv.org/abs/2607.12212)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 [![HuggingFace](https://img.shields.io/badge/🤗-Model%20Weights-blue)](https://huggingface.co/animeshakr/oct-fluid-segmentation)
 [![HuggingFace Space](https://img.shields.io/badge/🤗-Live%20Demo-green)](https://huggingface.co/spaces/animeshakr/oct-fluid-segmentation)
